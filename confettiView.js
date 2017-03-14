@@ -14,7 +14,8 @@ class ConfettiView extends Component {
     super(props)
     
     this.state = {
-      confettis: []
+      confettis: [],
+      confettiCount: props.confettiCount
     }
 
     this.confettiIndex = 0
@@ -24,7 +25,7 @@ class ConfettiView extends Component {
     let { confettis } = this.state
     let { confettiCount, timeout } = this.props
 
-    if(this.confettiIndex < confettiCount) {
+    if(this.confettiIndex < this.state.confettiCount) {
       this.setTimeout(() => {
         confettis.push({key: this.confettiIndex})
         this.confettiIndex++
@@ -35,6 +36,9 @@ class ConfettiView extends Component {
   }
 
   stopConfetti() {
+    this.setState({
+      confettiCount: this.confettiIndex+this.props.confettiCount
+    })
     this.clearTimeout()
   }
 
