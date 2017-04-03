@@ -14,15 +14,16 @@ class ConfettiView extends Component {
     super(props)
     
     this.state = {
-      confettis: [],
-      confettiMax: 0
+      confettis: []
     }
 
     this.confettiIndex = 0
+    this.confettiMax = this.props.confettiCount
     this.stopped = false
   }
 
   startConfetti() {
+    this.confettiMax = this.confettiIndex+this.props.confettiCount
     this.stopped = false
     this.confettiLoop()
   }
@@ -31,17 +32,18 @@ class ConfettiView extends Component {
     let { confettis } = this.state
     let { confettiCount, timeout } = this.props
 
-    if(!this.stopped && this.confettiIndex <= this.state.confettiMax) {
+    if(!this.stopped && this.confettiIndex < this.confettiMax) {
       this.setTimeout(() => {
         if(this.stopped) {
           return
         }
         
+        console.tron.log('confettiMax '+this.confettiMax)
+
         confettis.push({key: this.confettiIndex})
         this.confettiIndex++
         this.setState({
-          confettis,
-          confettiMax: this.confettiIndex+this.props.confettiCount
+          confettis
         })
         this.confettiLoop()
       }, timeout)
@@ -70,12 +72,11 @@ class ConfettiView extends Component {
 
   render() {
     let { confettis } = this.state
-    let { ...otherProps } = this.props
     
     return (
       <View style={styles.container}>
         {confettis.map(confetti => {
-          return <Confetti key={confetti.key} index={confetti.key} onComplete={this.removeConfetti.bind(this, confetti.key)} {...otherProps}/>
+          return <Confetti key={confetti.key} index={confetti.key} onComplete={this.removeConfetti.bind(this, confetti.key)} duration={this.props.duration} />
         })}
       </View>
     )

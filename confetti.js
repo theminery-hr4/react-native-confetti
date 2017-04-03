@@ -17,8 +17,11 @@ class Confetti extends Component {
       this._yAnimation = new Animated.Value(0)
       this.color = this.randomColor()
       this.left = this.randomValue(0, windowWidth)
-
       this.style = props.index % 5 === 0 ? styles.smallConfetti : styles.bigConfetti
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return false
   }
 
   componentWillMount() {
@@ -73,8 +76,7 @@ class Confetti extends Component {
   }
 
   render() {
-      let {left, ...otherProps} = this.props
-      return <Animated.View style={[styles.confetti, this.style, this.getTransformStyle(), {marginLeft: this.left, backgroundColor: this.color}]} {...otherProps}/>
+      return <Animated.View style={[styles.confetti, this.style, this.getTransformStyle(), {marginLeft: this.left, backgroundColor: this.color}]} />
   }
 }
 
