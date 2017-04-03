@@ -37,8 +37,6 @@ class ConfettiView extends Component {
         if(this.stopped) {
           return
         }
-        
-        console.tron.log('confettiMax '+this.confettiMax)
 
         confettis.push({key: this.confettiIndex})
         this.confettiIndex++
