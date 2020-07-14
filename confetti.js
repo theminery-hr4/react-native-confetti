@@ -18,13 +18,7 @@ class Confetti extends Component {
       this.color = this.randomColor()
       this.left = this.randomValue(0, windowWidth)
       this.style = props.index % 5 === 0 ? styles.smallConfetti : styles.bigConfetti
-  }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return false
-  }
-
-  componentWillMount() {
       let rotationOutput = this.randomValue(-220, 220) + 'deg'
       this._rotateAnimation = this._yAnimation.interpolate({
         inputRange: [0, windowHeight / 2, windowHeight],
@@ -36,6 +30,10 @@ class Confetti extends Component {
         inputRange: [0, windowHeight],
         outputRange: [0, xDistance]
       })
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return false
   }
 
   componentDidMount() {
